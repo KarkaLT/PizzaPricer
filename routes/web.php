@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\FormController;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,5 +16,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $orders = DB::table('orders')->get();
+    return view("orders", compact('orders'));
 });
+
+Route::get('/create_order', [FormController::class, 'create']);
+Route::post('/create_order', [FormController::class, 'store']);
